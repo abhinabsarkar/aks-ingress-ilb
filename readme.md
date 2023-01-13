@@ -1,6 +1,6 @@
 # AKS - Ingress controller with internal load balancer
 
-This article describes ingress traffic for an AKS cluster with Nginx ingress controller using internal load balancer. The AKS cluster in this case uses [kubenet networking](https://learn.microsoft.com/en-us/azure/aks/configure-kubenet). Few points to notice:
+This article describes ingress traffic for an AKS cluster with Nginx ingress controller using internal load balancer. The AKS cluster in this case uses [kubenet networking](https://learn.microsoft.com/en-us/azure/aks/configure-kubenet#overview-of-kubenet-networking-with-your-own-subnet). Few points to notice:
 * Ingress exposes HTTP(s) routes from outside the cluster to services within the cluster
 * Ingress controller creates & manages Azure internal load balancer to fulfill ingress. Refer [k8s ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/#what-is-ingress)
 * A VM is created on another subnet to validate access from internal network outside the AKS cluster
