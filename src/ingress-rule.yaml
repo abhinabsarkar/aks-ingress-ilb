@@ -1,0 +1,34 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-world-ingress
+  namespace: ingress-test
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  ingressClassName: nginx
+  defaultBackend:
+    service:
+      name: aks-helloworld
+      port:
+        number: 80
+  rules:
+  - host: ingress.abs.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: aks-helloworld
+            port:
+              number: 80
+        path: /hello-world-one
+        pathType: Prefix
+      - backend:
+          service:
+            name: ingress-demo
+            port:
+              number: 80
+        path: /hello-world-two
+        pathType: Prefix
