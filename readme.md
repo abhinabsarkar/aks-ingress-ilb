@@ -204,7 +204,7 @@ kubectl apply -f test-app1.yaml
 kubectl apply -f test-app2.yaml
 ```
 
-Create ingress rule(s) to connect to the service & test ingress controller. This will create an ingress rule to map requests for that domain to the appropriate service in Kubernetes.
+<!-- Create ingress rule(s) to connect to the service & test ingress controller. This will create an ingress rule to map requests for that domain to the appropriate service in Kubernetes.
 ```bash
 export DOMAIN_NAME="ingress.abs.com"
 kubectl apply -f ingress-rule.yaml
@@ -221,9 +221,27 @@ curl -L -H "Host: ingress.abs.com" http://10.0.1.5/hello-world-one
 
 # To reach app2, add the path for app2
 curl -L -H "Host: ingress.abs.com" http://10.0.1.5/hello-world-two
-```
 
 To test it from browser, update the host file with the IP address of load balancer & domain name.
+``` -->
+
+Create ingress rule(s) to connect to the service & test ingress controller. This will create an ingress rule to map requests to the appropriate service in Kubernetes.
+```bash
+kubectl apply -f ingress-rules.yaml
+```
+> Note annotation of nginx.ingress.kubernetes.io/ssl-redirect: "false". This will ensure that if we ever assign a TLS certificate to the ingress definition, NGINX won't start re-routing http traffic to https. This is important for us since we are using an Application Gateway that will terminate SSL and we want this behavior to be enforced by the Application Gateway, not the ingress controller. Otherwise, it might mess up with the health probes from the Application Gateway to the Kubernetes cluster.
+
+To test the application, login to the VM created in subnet `sn-vm`. Since the load balancer is using private IP address, the apps can be accessed only from the same network segment & not from internet/public IP address.
+```bash
+# To reach app1 use the IP address or explicitly add the path for app1
+curl http://10.0.1.5
+curl http://10.0.1.5/hello-world-one
+
+# To reach app2, add the path for app2 along with IP address
+curl http://10.0.1.5/hello-world-two
+```
+
+it can be tested from browser from the VM which is provisioned in the subnet.
 
 It can also be tested by creating a test pod and attaching a terminal session to it. Refer [test an internal IP address](https://learn.microsoft.com/en-us/azure/aks/ingress-basic?tabs=azure-cli#test-an-internal-ip-address)
 
