@@ -1,5 +1,6 @@
-# App Gwy for an AKS cluster with TLS
+# App Gwy for an AKS cluster without TLS
 
+## Deploy & configure Application Gateway for the AKS cluster
 ```bash
 rgName=rg-abhi-aks
 location=canadacentral
@@ -39,3 +40,4 @@ curl http://4.205.41.105/hello-world-one
 # To reach app2, add the path for app2 along with IP address
 curl http://4.205.41.105/hello-world-two
 ```
+

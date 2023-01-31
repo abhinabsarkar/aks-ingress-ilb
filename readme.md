@@ -241,7 +241,7 @@ curl http://10.0.1.5/hello-world-one
 curl http://10.0.1.5/hello-world-two
 ```
 
-it can be tested from browser from the VM which is provisioned in the subnet.
+It can be tested from browser from the VM which is provisioned in the subnet.
 
 It can also be tested by creating a test pod and attaching a terminal session to it. Refer [test an internal IP address](https://learn.microsoft.com/en-us/azure/aks/ingress-basic?tabs=azure-cli#test-an-internal-ip-address)
 
